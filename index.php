@@ -11,7 +11,7 @@ use Dictionary\Validator 	as Validator; 	#/dictionary/updater
 
 $f3=\Base::instance();
 $f3->config('config.cfg');
-$f3->set('DEBUG',3);
+$f3->set('DEBUG',1);
 /*
  *	Main route. Used to display schemas, tables and table detail pages.
  *	usage: http://base.url/{schema}/{table}"
@@ -63,7 +63,7 @@ $f3->route(array(
 		}
 
 		if(($params['schema'] == '*') && ($params['table'] == '*')){
-			$schemas = $redshift->getSchemas();
+			$schemas = $redshift->getSchemas($f3->get('NSPOWNER'));
 			$f3->set('schemas', $schemas);
 			echo \Template::instance()->render('web/default/templates/schema_template.phtml');
 		}
