@@ -1,0 +1,24 @@
+<h2>Sample Data</h2>
+<br>
+<div class="container-fluid" style="width: 100%;overflow: scroll;white-space: nowrap;">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<repeat group="{{ @column_defs }}" key="{{ @column_key }}" value="{{ @column[0] }}">
+					<th>{{ @column[0]->column }}</th>
+				</repeat>
+			</tr>
+		</thead>
+		<tbody>
+			<repeat group="{{ @sample_data }}" key="{{ @sample_key }}" value="{{ @sample_row[0] }}">
+				<tr>
+					<repeat group="{{ @column_defs }}" key="{{ @column_key }}" value="{{ @column[0] }}">
+						<td>{{ @sample_row[0]->{@column[0]->column} }}</td>
+					</repeat>
+				</tr>
+			</repeat>
+		</tbody>
+	</table>
+</div>
+<br>
+<pre>Query: select * from {{ @schema }}.{{ @table }} order by refresh_id DESC LIMIT 10;</pre>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Data Warehouse Dictionary</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <meta name="google" content="notranslate">
+        <meta http-equiv="Content-Language" content="en">
+        <link href="{{ @bootstrapcss }}" rel="stylesheet" media="screen">
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="{{ @bootstrapjs }}"></script>
+    </head>
+    <body>
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <style>
+        h1{
+            color: #176289;
+            font-weight: unset;
+            margin: 0;
+            padding-top: 35px;
+        }
+
+        h2{
+            color: #176289;
+            font-weight: unset;
+            margin: 0;
+            padding: 0;
+        }
+
+        .table{
+            border: 1px #ebebeb solid;
+            background: #fff;
+        }
+
+        body{
+           background:  #f8f8f8;
+        }
+        
+        .thumbnail{
+            background: none;
+        }
+
+        .hiddenRow {
+            padding: 0 !important;
+        }
+
+        .table>thead>tr>th{
+            border-bottom: none;
+        }
+        </style>
+        <div class="container">
+            <include href="{{ @header }}" />
+            <include href="{{ @schema_tables }}" />
+        </div>
+    </body>
+</html>

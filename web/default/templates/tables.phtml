@@ -1,0 +1,16 @@
+<h2>{{ @schema }} tables</h2>
+<br />
+<ul class="thumbnails" style="display: block;width: 100%;text-align: center;">
+	<repeat group="{{ @tables }}" key="{{ @ikey }}" value="{{ @table }}">
+		<li class="span4" style="display: inline-block;word-wrap: break-word;margin: 10px;">
+		    <div class="thumbnail" style="width: 200px;display: inline-block;vertical-align: top;border:none;">
+		    	<a href="/{{ @schema }}/{{ @table.tablename }}">
+				<img data-src="{{ @table_icon }}" alt="300x200" src="{{ @table_icon }}">
+				<div class="caption">
+					<p>{{ @table.tablename }}</p>
+				</div>
+				</a>
+			</div>
+	  	</li>
+	</repeat>
+</ul>

@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span2" style="width: 20%;min-width:200px;display: inline-block;">
+      <a href="/"><img src="{{@logo}}"></a>
+    </div>
+    <div class="span10" style="width: 79%;display: inline-block;">
+      <check if="{{ @schema !== 'empty' }}">
+      <h1>Schema: <a href="/{{ @schema }}">{{ @schema }}</a>
+      </check>
+      <check if="{{ @table !== 'empty' }}">
+        <br/> Table: {{ @table }}
+      </check></h1>
+	<br/>
+  <check if="{{ @schema !== 'empty' }}">
+      <div class="description" 
+          data-schema="{{ @schema }}"
+          data-table="{{ @table }}"
+          style="border:solid 1px #eee;padding-left:5px;background: #fff;min-height: 25px;color: #176289;">{{ @description }}</div>
+        </check>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Data Warehouse Dictionary</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <meta name="google" content="notranslate">
+        <meta http-equiv="Content-Language" content="en">
+        <link href="{{ @bootstrapcss }}" rel="stylesheet" media="screen">
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="{{ @bootstrapjs }}"></script>
+    </head>
+    <body>
+        <script type="text/javascript">
+            item_updates = {};
+        </script>
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script type="text/javascript">
+            function divClicked() {
+                var divHtml = $(this).html();
+                var editableText = $("<textarea />");
+                editableText.addClass($(this).attr('class'));
+                editableText.attr('data-schema', $(this).attr('data-schema'));
+                editableText.attr('data-table', $(this).attr('data-table'));
+                var column = $(this).attr('data-column');
+                if(typeof column !== typeof undefined && column !== false){
+                    editableText.attr('data-column', $(this).attr('data-column'));
+                }
+                editableText.css({"width": "100%", "outline": "none", "resize": "none"});
+                editableText.val(divHtml);
+                $(this).replaceWith(editableText);
+                editableText.focus();
+                // setup the blur event for this new textarea
+                editableText.blur(editableTextBlurred);
+            }
+
+            function editableTextBlurred() {
+                var html = $(this).val();
+                var viewableText = $("<div>");
+                viewableText.css({"border": "solid 1px #eee","padding":"5px"});
+                viewableText.html(html);
+                viewableText.addClass($(this).attr('class'));
+                viewableText.attr('data-schema', $(this).attr('data-schema'));
+                viewableText.attr('data-table', $(this).attr('data-table'));
+                item_updates['schema'] = $(this).attr('data-schema');
+                item_updates['table'] = $(this).attr('data-table');
+                var column = $(this).attr('data-column');
+                if(typeof column !== typeof undefined && column !== false){
+                    viewableText.attr('data-column', $(this).attr('data-column'));
+                    item_updates['column'] = column;
+                    item_updates['column_description'] = html;
+                }else{
+                    item_updates['table_description'] = html;
+                }
+                $(this).replaceWith(viewableText);
+                // setup the click event for this new div
+                viewableText.click(divClicked);
+                var url = '/updates';
+                    var request = $.post(
+                        url,
+                        item_updates,
+                        function(){
+                            console.log(data);
+                        },
+                        "json"            
+                    ); // end post function
+            }
+
+
+            function addOrReplace(hash, key, object) {
+                hash[key] = object;
+            }
+
+            function setPathAndVal(path, value) {
+                var schema = item_updates;  // a moving reference to internal objects within obj
+                var pList = path.split('.');
+                var len = pList.length;
+                for(var i = 0; i < len-1; i++) {
+                    var elem = pList[i];
+                    if( !schema[elem] ) schema[elem] = {}
+                    schema = schema[elem];
+                }
+
+                schema[pList[len-1]] = value;
+            }
+
+            $(document).ready(function() {
+                $(".description").click(divClicked);
+            });
+        </script>
+        <style>
+        h1{
+            color: #176289;
+            font-weight: unset;
+            margin: 0;
+            padding-top: 35px;
+        }
+
+        h2{
+            color: #176289;
+            font-weight: unset;
+            margin: 0;
+            padding: 0;
+        }
+
+        .thumbnail{
+            background: none;
+        }
+
+        .table{
+            border: 1px #ebebeb solid;
+            background: #fff;
+        }
+
+        body{
+           background:  #f8f8f8;
+        }
+        
+        .hiddenRow {
+            padding: 0 !important;
+        }
+
+        .table>thead>tr>th{
+            border-bottom: none;
+        }
+
+        </style>
+        <script type="text/javascript">
+    var item_json = {{htmlspecialchars_decode(@item_json)}};
+</script>
+        <div class="container">
+            <include href="{{ @header }}" />
+            <include href="{{ @stats }}" />
+            <include href="{{ @cols }}" />
+            <include href="{{ @samp }}" />
+        </div>
+    </body>
+</html>

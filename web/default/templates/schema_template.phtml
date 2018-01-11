@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Data Warehouse Dictionary</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <meta name="google" content="notranslate">
+        <meta http-equiv="Content-Language" content="en">
+        <link href="{{ @bootstrapcss }}" rel="stylesheet" media="screen">
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="{{ @bootstrapjs }}"></script>
+    </head>
+    <body>
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script type="text/javascript">
+            function divClicked() {
+                var divHtml = $(this).html();
+                var editableText = $("<textarea />");
+                editableText.css({"width": "100%", "outline": "none", "resize": "none"});
+                editableText.val(divHtml);
+                $(this).replaceWith(editableText);
+                editableText.focus();
+                // setup the blur event for this new textarea
+                editableText.blur(editableTextBlurred);
+            }
+
+            function editableTextBlurred() {
+                var html = $(this).val();
+                var viewableText = $("<div>");
+                viewableText.css({"border": "solid 1px #eee","padding":"5px"});
+                viewableText.html(html);
+                $(this).replaceWith(viewableText);
+                // setup the click event for this new div
+                viewableText.click(divClicked);
+            }
+
+            $(document).ready(function() {
+                $(".description").click(divClicked);
+            });
+        </script>
+        <style>
+        h1{
+            color: #176289;
+            font-weight: unset;
+            margin: 0;
+            padding-top: 35px;
+        }
+
+        h2{
+            color: #176289;
+            font-weight: unset;
+            margin: 0;
+            padding: 0;
+        }
+
+        body{
+           background:  #f8f8f8;
+        }
+
+        .thumbnail{
+            background: none;
+        }
+
+        .hiddenRow {
+            padding: 0 !important;
+        }
+
+        .table>thead>tr>th{
+            border-bottom: none;
+        }
+
+        .table{
+            border: 1px #ebebeb solid;
+            background: #fff;
+        }
+        </style>
+        <div class="container">
+            <include href="{{ @header }}" />
+            <include href="{{ @schema_template }}" />
+        </div>
+    </body>
+</html>

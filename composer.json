@@ -1,0 +1,27 @@
+{
+    "name": "modulismo/dictionary",
+    "description": "Data Warehouse Dictionary.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "memorious",
+            "email": "memorious@modulismo.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.0",
+        "bcosca/fatfree": "*",
+        "aws/aws-sdk-php": "*",
+        "twitter/bootstrap": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dictionary\\DynamoDb\\":   "dictionary/dynamodb/",
+            "Dictionary\\Redshift\\":   "dictionary/redshift/",
+            "Dictionary\\Formatter\\":  "dictionary/formatter/",
+            "Dictionary\\Updater\\":    "dictionary/updater/",
+            "Dictionary\\Validator\\":  "dictionary/validator/"
+        }
+    }
+}

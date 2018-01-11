@@ -1,0 +1,49 @@
+<h2>Table Columns</h2>
+<br />
+<table class="table" class="table table-striped">
+	<thead>
+		<tr>
+			<th>Column</th>
+			<th>Type</th>
+		</tr>
+	</thead>
+	<tbody>
+		<repeat group="{{ @column_defs }}" key="{{ @ikey }}" value="{{ @column[0] }}">
+			<tr data-toggle="collapse" data-target="#{{ @column[0]->schemaname }}-{{ @column[0]->tablename }}-{{ @column[0]->column }}" class="accordion-toggle">
+      			<td>{{ @column[0]->column }}</td>
+      			<td>{{ @column[0]->type }}</td>
+  			</tr>
+  			<tr>
+  				<td colspan="6" class="hiddenRow" style="border-top: none;">
+              <check if="{{ @column[0]->description != '' }}">
+                <div class="accordion-body collapse in" id="{{ @column[0]->schemaname }}-{{ @column[0]->tablename }}-{{ @column[0]->column }}" style="margin:10px;">
+              </check>
+              <check if="{{ @column[0]->description == '' }}">
+                <div class="accordion-body collapse" id="{{ @column[0]->schemaname }}-{{ @column[0]->tablename }}-{{ @column[0]->column }}" style="margin:10px;">
+              </check>
+              <check if="{{ @column[0]->description != '' }}">
+                <div 
+                class="description"
+                style="padding:5px;color: #176289;"
+                data-schema="{{ @schema }}"
+                    data-table="{{ @table }}"
+                    data-column="{{ @column[0]->column }}">
+              </check>
+              <check if="{{ @column[0]->description == '' }}">
+                <div 
+                class="description"
+                style="border: solid 1px #eee;padding:5px;color: #176289;"
+                data-schema="{{ @schema }}"
+                    data-table="{{ @table }}"
+                    data-column="{{ @column[0]->column }}">
+              </check>
+  						{{ @column[0]->description }}</div>
+  					</div>
+				</td>
+  			</tr>
+		</repeat>
+	</tbody>
+</table>
+<pre>Query: <br/>set search_path to {{@schema}};
+select count(*) as total from pg_table_def where tablename = '{{@table}}';</pre>
+<br><br>
