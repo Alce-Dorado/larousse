@@ -20,8 +20,8 @@
 			return $this;
 		}
 
-		public function getSchemas(){
-			$query = "select * from pg_namespace where nspowner = '" . NSPOWNER . "';";
+		public function getSchemas($owner){
+			$query = "select * from pg_namespace where nspowner = '" . $owner . "';";
 			return $this->commitQuery($query);
 		}
 		
